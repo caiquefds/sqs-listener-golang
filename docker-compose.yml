@@ -1,0 +1,14 @@
+name: spring-testing
+services:
+    localstack:
+        image: localstack/localstack:3.5.0
+        ports:
+            - "127.0.0.1:4566:4566"           
+            - "127.0.0.1:4510-4559:4510-4559" 
+        environment:
+            - DEBUG=${DEBUG:-0}
+            - SERVICES=sqs
+        volumes:
+            - "./.docker/localstack:/etc/localstack/init/ready.d"
+            - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+            - "/var/run/docker.sock:/var/run/docker.sock"
